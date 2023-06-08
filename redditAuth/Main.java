@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    public static final String formatting(String str, long j12) {
+    public static final String formatting(String str, long seconds) {
         String format = String.format(Locale.US, "%d:%s:%d:%d:%s",
-                Arrays.copyOf(new Object[] { 1, "android", 2, Long.valueOf(j12), str }, 5));
+                Arrays.copyOf(new Object[] { 1, "android", 2, Long.valueOf(seconds), str }, 5));
         return format;
     }
 
