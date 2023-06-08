@@ -2,7 +2,9 @@
 
 This Repository provides functions to compute the HMAC signed headers, required for
 the official __accounts.reddit.com/api/login__ endpoint. This endpoint will respond with a 
-session cookie that can be used to get an Access Token.
+session cookie that can be used to get an Access Token for use in the Official Reddit App.
+
+Documentation for the GraphQL API can be found in the [Wiki](https://github.com/KhoalaS/RedditAppLogin/wiki).
 
 ## Usage
 
