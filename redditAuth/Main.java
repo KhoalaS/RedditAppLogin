@@ -24,7 +24,7 @@ public class Main {
 
         String format = String.format(locale, "Epoch:%d|Body:%s",
                 Arrays.copyOf(new Object[] { Long.valueOf(seconds), json }, 2));
-        String hmacFormat = XHmac.c(format, bytes);
+        String hmacFormat = XHmac.getSignedHexString(format, bytes);
         String headerFormat = formatting(hmacFormat, seconds);
         System.out.println("X-hmac-signed-body: " + headerFormat);
 
@@ -34,7 +34,7 @@ public class Main {
 
         String format2 = String.format(locale, "Epoch:%d|User-Agent:%s|Client-Vendor-ID:%s",
                 Arrays.copyOf(new Object[] { Long.valueOf(seconds), userAgent, clientVendorID }, 3));
-        String hmacFormat2 = XHmac.c(format2, bytes);
+        String hmacFormat2 = XHmac.getSignedHexString(format2, bytes);
         String headerFormat2 = formatting(hmacFormat2, seconds);
         System.out.println("X-hmac-signed-result: " + headerFormat2);
     }
