@@ -20,21 +20,22 @@ public class Main {
 
         long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         String decryptSigningKey = "8c7abaa5f905f70400c81bf3a1a101e75f7210104b1991f0cd5240aa80c4d99d";
-        byte[] bytes = decryptSigningKey.getBytes(Charset.forName("UTF-8"));
+        byte[] key = decryptSigningKey.getBytes(Charset.forName("UTF-8"));
 
         String format = String.format(locale, "Epoch:%d|Body:%s",
                 Arrays.copyOf(new Object[] { Long.valueOf(seconds), json }, 2));
-        String hmacFormat = XHmac.getSignedHexString(format, bytes);
+        String hmacFormat = XHmac.getSignedHexString(format, key);
         String headerFormat = formatting(hmacFormat, seconds);
         System.out.println("X-hmac-signed-body: " + headerFormat);
 
         // arbitrary version
         String userAgent = "Reddit/Version 2023.21.0/Build 956283/Android 11";
         String clientVendorID = getDeviceID();
+        System.out.println(clientVendorID);
 
         String format2 = String.format(locale, "Epoch:%d|User-Agent:%s|Client-Vendor-ID:%s",
                 Arrays.copyOf(new Object[] { Long.valueOf(seconds), userAgent, clientVendorID }, 3));
-        String hmacFormat2 = XHmac.getSignedHexString(format2, bytes);
+        String hmacFormat2 = XHmac.getSignedHexString(format2, key);
         String headerFormat2 = formatting(hmacFormat2, seconds);
         System.out.println("X-hmac-signed-result: " + headerFormat2);
     }

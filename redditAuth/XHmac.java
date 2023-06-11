@@ -9,22 +9,22 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class XHmac {
 
-    public static String getSignedHexString(String str, byte[] bArr) {
+    public static String getSignedHexString(String data, byte[] key) {
         try {
-            Charset forName = Charset.forName("UTF-8");
-            byte[] bytes = str.getBytes(forName);
-            return toHexString(signMessage(bArr, bytes));
+            Charset charset = Charset.forName("UTF-8");
+            byte[] bytes = data.getBytes(charset);
+            return toHexString(signMessage(key, bytes));
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static byte[] signMessage(byte[] data, byte[] signingKey)
+    public static byte[] signMessage(byte[] key, byte[] msg)
             throws NoSuchAlgorithmException, InvalidKeyException {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(data, "HmacSHA256");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "HmacSHA256");
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(secretKeySpec);
-        byte[] doFinal = mac.doFinal(signingKey);
+        byte[] doFinal = mac.doFinal(msg);
         return doFinal;
     }
 
